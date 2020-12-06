@@ -12,17 +12,17 @@ const questions = [
     {
       type: "input",
       name: "role",
-      message: "Describe your What is the employee's role?",
+      message: "What is the employee's role?",
     },
   
     {
         type: "input",
         name: "ID",
         message: "ID number?",
-      },
+    },
 
     {
         type: "input",
         name: "specific",
         message: "?",
-      },
+    },
