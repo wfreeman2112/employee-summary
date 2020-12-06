@@ -1,0 +1,28 @@
+{
+  "name": "employee-summary",
+  "version": "1.0.0",
+  "description": "Homework 10",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "jest": "^26.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wfreeman2112/employee-summary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wfreeman2112/employee-summary/issues"
+  },
+  "homepage": "https://github.com/wfreeman2112/employee-summary#readme"
+}
