@@ -65,11 +65,15 @@ const questions = [
 
 function start(){
     inquirer.prompt(questions).then(function(response){
+        console.log(response)
         if (response.title === "Manager"){
             addManager(response)
         }
         if (response.title === "Engineer"){
             addEngineer(response)
+        }
+        if (response.title === "Intern"){
+            addIntern(response)
         }
     })
 }
@@ -82,6 +86,9 @@ function addManager(response){
     }).then(function(managerResponse){
         let manager = new Manager(response.name, response.id, response.email, managerResponse.officeNumber)
         employees.push(manager)
+        buildTeam()
+    })
+}
 
 function addEngineer(response){
     inquirer.prompt({
@@ -91,7 +98,9 @@ function addEngineer(response){
     }).then(function(engineerResponse){
         let engineer = new Engineer(response.name, response.id, response.email, engineerResponse.github)
         employees.push(engineer)
-},
+        buildTeam()
+    })
+}
         
 
 function addIntern(response){
@@ -99,37 +108,54 @@ function addIntern(response){
         type: "input",
         name: "school",
         message: "what school do you attend?",
-        }).then(function(internResponse){
+    }).then(function(internResponse){
         let intern = new Intern(response.name, response.id, response.email, internResponse.school)
          employees.push(intern)
- },
+         buildTeam()
+    })
+ } 
 
-function buildTeam(response){   
-        inquirer.prompt({
-            //create inquirer function for if they want to add more employees. if yes, call start function, if not, create team
-            type: "list",
-            name: "addMore",
-            message: "do you want to add another employee?",
-            choices: ["Yes", "No"],
-            if (response.addMore === "Yes") {(start())
-            } else {
+function buildTeam(){   
+    inquirer.prompt({
+            //create inquirer function for if they want to add more employees. if yes, call start function, if not, create team/call render
+        type: "list",
+        name: "addEmployee",
+        message: "do you want to add another employee?",
+        choices: ["Yes", "No"]
+    }).then(function(employeeResponse){
+        if (employeeResponse.addEmployee === "Yes"){
+            start()
+        } else {
+            const employeeHTML = render(employees)
+            fs.writeFile(outputPath, employeeHTML, function(){
 
-            }
+            })
 
-            // is this how I write in to the HTML file???
-            // fs.writeFile('log.txt', process.argv[2], (err) =>
-            // err ? console.error(err) : console.log('Success!')
-            // );
+        }
+        
+    })
+        
 
-            }
+        
+            // After the user has input all employees desired, call the `render` function (required
+            // above) and pass in an array containing all employee objects; the `render` function will
+            // generate and return a block of HTML including templated divs for each employee!
+
+            // After you have your html, you're now ready to create an HTML file using the HTML
+            // returned from the `render` function. Now write it to a file named `team.html` in the
+            // `output` folder. You can use the variable `outputPath` above target this location.
+            // Hint: you may need to check if the `output` folder exists and create it if it
+            // does not.
+            
+
+            
         
         
-        });
+    
         
-     };    
+};    
 
-    });
-};
+   
 
 
 start()
