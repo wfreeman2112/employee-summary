@@ -68,6 +68,9 @@ function start(){
         if (response.title === "Manager"){
             addManager(response)
         }
+        if (response.title === "Engineer"){
+            addEngineer(response)
+        }
     })
 }
 
@@ -79,12 +82,54 @@ function addManager(response){
     }).then(function(managerResponse){
         let manager = new Manager(response.name, response.id, response.email, managerResponse.officeNumber)
         employees.push(manager)
+
+function addEngineer(response){
+    inquirer.prompt({
+        type: "input",
+        name: "github",
+        message: "what is your github ID?",
+    }).then(function(engineerResponse){
+        let engineer = new Engineer(response.name, response.id, response.email, engineerResponse.github)
+        employees.push(engineer)
+},
         
+
+function addIntern(response){
+    inquirer.prompt({
+        type: "input",
+        name: "school",
+        message: "what school do you attend?",
+        }).then(function(internResponse){
+        let intern = new Intern(response.name, response.id, response.email, internResponse.school)
+         employees.push(intern)
+ },
+
+function buildTeam(response){   
         inquirer.prompt({
             //create inquirer function for if they want to add more employees. if yes, call start function, if not, create team
-        })
-    })
-}
+            type: "list",
+            name: "addMore",
+            message: "do you want to add another employee?",
+            choices: ["Yes", "No"],
+            if (response.addMore === "Yes") {(start())
+            } else {
+
+            }
+
+            // is this how I write in to the HTML file???
+            // fs.writeFile('log.txt', process.argv[2], (err) =>
+            // err ? console.error(err) : console.log('Success!')
+            // );
+
+            }
+        
+        
+        });
+        
+     };    
+
+    });
+};
 
 
 start()
